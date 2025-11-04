@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 210 40% 98%;
+    --foreground: 220 40% 15%; /* Dark Grey/Black for text */
+
+    /* Card & Popover */
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 15%;
+
+    /* PRIMARY: Bright Orange from Logo */
+    --primary: 30 100% 55%; 
+    --primary-foreground: 0 0% 100%; /* White text on Orange buttons */
+
+    /* SECONDARY: Retaining current Secondary for contrast/accents (You might want to update this later) */
+    --secondary: 180 65% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* ACCENT: Muted Deep Blue (COMPLIMENTARY TO ORANGE) */
+    --accent: 210 90% 45%; 
+    --accent-foreground: 0 0% 100%;
+
+    /* Muted */
+    --muted: 210 40% 96%;
+    --muted-foreground: 220 15% 55%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 30 100% 55%; /* Ring matches Primary Orange */
+
+    --radius: 0.75rem;
+
+    /* Gradients updated to use the new Primary Orange and Deep Blue Accent */
+    --gradient-hero: linear-gradient(135deg, hsl(30 100% 55%), hsl(210 90% 45%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    
+    --shadow-soft: 0 2px 8px hsl(220 40% 15% / 0.08);
+    --shadow-medium: 0 4px 16px hsl(220 40% 15% / 0.12);
+    --shadow-large: 0 8px 32px hsl(220 40% 15% / 0.16);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Dark Mode Adjustments */
+  .dark {
+    --background: 220 40% 10%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 40% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 40% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 30 100% 65%; /* Lighter orange for dark mode contrast */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 180 65% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 40% 18%;
+    --muted-foreground: 220 15% 65%;
+
+    --accent: 210 90% 60%; /* Lighter blue for dark mode contrast */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 40% 18%;
+    --input: 220 40% 18%;
+    --ring: 30 100% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
