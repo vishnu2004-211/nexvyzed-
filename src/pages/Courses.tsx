@@ -1,9 +1,10 @@
-// src/pages/Courses.tsx (Updated with FAQ Section)
+// src/pages/Courses.tsx (Changes to the Link component)
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Link is needed
+// ... (other imports)
 import {
   Briefcase,
   Brain,
@@ -20,7 +21,13 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/components/ui/accordion"; // 👈 NEW IMPORT
+} from "@/components/ui/accordion"; 
+
+// --- UTILITY FUNCTION: Converts Course Title to URL-friendly Slug ---
+const toSlug = (title: string): string => 
+  title.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-');
+// --------------------------------------------------------------------
+
 
 // --- FAQ DATA FOR COURSES PAGE ---
 const courseFAQs = [
@@ -34,7 +41,7 @@ const courseFAQs = [
     },
     {
         question: "Do you offer job placement assistance after course completion?",
-        answer: "Yes, our Campus Placement Training and Interview Mastery programs include dedicated job assistance, resume building, mock interviews, and access to exclusive placement drives."
+        answer: "Yes, our Technical Placement Training and Interview Mastery programs include dedicated job assistance, resume building, mock interviews, and access to exclusive placement drives."
     },
     {
         question: "What happens if I miss a live class?",
@@ -43,19 +50,20 @@ const courseFAQs = [
 ];
 // ---------------------------------
 
+
 const Courses = () => {
   const courses = [
     {
-      title: "Campus Placement Training",
+      title: "Placement Training", // Ensure this title matches the key's source
       icon: Briefcase,
       duration: "5 Months",
-      level: "Beginner to Advanced",
+      level: "Intermediate to Advanced",
       price: "₹15,999", 
       description:
-        "Comprehensive training program covering aptitude, reasoning, technical skills, and interview preparation for campus placements.",
+        "The definitive program for final-year students targeting technical roles in product-based companies. Focuses heavily on Data Structures, Algorithms, and a modern Full-Stack development project.",
       features: [
         "Aptitude & Logical Reasoning",
-        "Communication Skills",
+        "Full Stack Development Project",
         "Technical Interview Prep",
         "Mock Interviews",
         "Resume Building",
@@ -166,6 +174,8 @@ const Courses = () => {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {courses.map((course, index) => {
               const Icon = course.icon;
+              const slug = toSlug(course.title); // Generate slug for the detail link
+
               return (
                 <div
                   key={index}
@@ -208,9 +218,20 @@ const Courses = () => {
                       </ul>
                     </div>
 
-                    <Button asChild className="w-full">
-                      <Link to="/enroll">Enroll Now</Link> 
-                    </Button>
+                    {/* NEW BUTTONS: Detail View & Enrollment */}
+                    <div className="space-y-3">
+                        <Button asChild variant="outline" className="w-full">
+                            <Link to={`/courses/${slug}`}>
+                                View Course Details
+                            </Link>
+                        </Button>
+                        <Button asChild className="w-full">
+                            {/* CRITICAL CHANGE: Passing the course title in the link state */}
+                            <Link to="/enroll" state={{ preselectedCourse: course.title }}>
+                                Enroll Now
+                            </Link>
+                        </Button>
+                    </div>
                   </div>
                 </div>
               );
@@ -218,7 +239,7 @@ const Courses = () => {
           </div>
         </div>
       </section>
-
+      
       {/* FAQ Section */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">

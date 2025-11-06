@@ -102,3 +102,15 @@ All colors MUST be HSL.
     @apply font-bold tracking-tight;
   }
 }
+
+/* --- NEW: Keyframes for Continuous Scrolling Marquee in About.tsx --- */
+@keyframes marquee {
+    /* Starts at the beginning */
+    from { 
+        transform: translateX(0); 
+    }
+    /* Moves the entire duplicated content block exactly halfway */
+    to { 
+        transform: translateX(-50%); 
+    } 
+}

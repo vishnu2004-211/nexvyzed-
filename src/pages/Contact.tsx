@@ -1,3 +1,5 @@
+// src/pages/Contact.tsx
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -6,6 +8,39 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"; 
+
+// --- CRITICAL CHANGE: FORMSPREE CONTACT ENDPOINT ---
+const FORMSPREE_CONTACT_URL = "https://formspree.io/f/mzzknver"; 
+// ---------------------------------------------------------------------------------
+
+
+// --- FAQ DATA FOR CONTACT PAGE (Remains unchanged) ---
+const contactFAQs = [
+    {
+        question: "What are your operating hours?",
+        answer: "Our support staff is available from 9:00 AM to 6:00 PM IST, Monday through Saturday. You can reach us by phone or email during these hours."
+    },
+    {
+        question: "Where is your main office located?",
+        answer: "While our primary operations are managed online, our administrative office is located in Vijayawada, India. All courses are currently delivered digitally."
+    },
+    {
+        question: "How long does it take to get a response to an email inquiry?",
+        answer: "We strive to respond to all email inquiries within 24 business hours. For urgent matters, please call us directly during operating hours."
+    },
+    {
+        question: "Do you offer demo classes before enrollment?",
+        answer: "Yes, we frequently offer short demo sessions or introductory webinars for our main programs. Please contact us or check the Courses page for upcoming dates."
+    },
+];
+// ---------------------------------
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,11 +51,41 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    toast.success("Thank you for contacting us! We'll get back to you soon.");
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    
+    // Data matches the form fields exactly
+    const dataToSubmit = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
+    try {
+        const response = await fetch(FORMSPREE_CONTACT_URL, {
+            method: 'POST',
+            // Formspree accepts JSON body
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataToSubmit), 
+        });
+
+        if (response.ok) {
+            toast.success("Thank you! Your message has been sent successfully via Formspree.");
+            setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+        } else {
+            // Formspree returns detailed errors
+            const errorData = await response.json();
+            console.error("Formspree error:", errorData);
+            // Provide specific feedback if possible, or general error
+            const errorMessage = errorData.error || "Submission failed. Please try again.";
+            toast.error(errorMessage);
+        }
+    } catch (error) {
+        console.error("Submission network error:", error);
+        toast.error("Network error. Could not submit the form.");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -31,21 +96,10 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      detail: "info@nexvyzed.com",
+      detail: "careersmasternex@gmail.com",
       link: "mailto:info@nexvyzed.com",
     },
-    {
-      icon: Phone,
-      title: "Phone",
-      detail: "+91 95730 28277",
-      link: "tel:+919876543210",
-    },
-    {
-      icon: MapPin,
-      title: "Address",
-      detail: "Vijayawada, India",
-      link: "#",
-    },
+    // Only Email remains
   ];
 
   return (
@@ -66,22 +120,25 @@ const Contact = () => {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="border-b py-12">
+      <section className="border-b pt-12 pb-8">
         <div className="container mx-auto px-4">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="mx-auto max-w-3xl"> 
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
                 <a
                   key={index}
                   href={info.link}
-                  className="group flex flex-col items-center rounded-lg border bg-card p-6 text-center shadow-sm transition-all hover:shadow-md"
+                  // Styling adjusted for a single, full-width card
+                  className="group flex flex-row items-center rounded-lg border bg-card p-6 shadow-sm transition-all hover:shadow-md space-x-4" 
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-transform group-hover:scale-110">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-transform group-hover:scale-110 flex-shrink-0">
                     <Icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mb-2 text-sm font-semibold">{info.title}</h3>
-                  <p className="text-sm text-muted-foreground">{info.detail}</p>
+                  <div>
+                    <h3 className="mb-1 text-base font-semibold">{info.title}:</h3>
+                    <p className="text-lg font-medium text-foreground">{info.detail}</p>
+                  </div>
                 </a>
               );
             })}
@@ -90,7 +147,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Form */}
-      <section className="py-16">
+      <section className="py-8">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <div className="rounded-lg border bg-card p-8 shadow-sm">
@@ -103,8 +160,8 @@ const Contact = () => {
                     </label>
                     <Input
                       id="name"
-                      name="name"
-                      placeholder="John Doe"
+                      name="name" 
+                      placeholder="Your Name"
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -116,9 +173,9 @@ const Contact = () => {
                     </label>
                     <Input
                       id="email"
-                      name="email"
+                      name="email" 
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="you@example.com"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -133,7 +190,7 @@ const Contact = () => {
                     </label>
                     <Input
                       id="phone"
-                      name="phone"
+                      name="phone" 
                       type="tel"
                       placeholder="+91 98765 43210"
                       value={formData.phone}
@@ -146,7 +203,7 @@ const Contact = () => {
                     </label>
                     <Input
                       id="subject"
-                      name="subject"
+                      name="subject" 
                       placeholder="Course Inquiry"
                       value={formData.subject}
                       onChange={handleChange}
@@ -161,7 +218,7 @@ const Contact = () => {
                   </label>
                   <Textarea
                     id="message"
-                    name="message"
+                    name="message" 
                     placeholder="Tell us more about your inquiry..."
                     rows={6}
                     value={formData.message}
@@ -176,6 +233,27 @@ const Contact = () => {
               </form>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-muted/30 border-t">
+        <div className="container mx-auto px-4">
+            <div className="mx-auto max-w-3xl">
+                <h2 className="mb-8 text-3xl font-bold text-center">Common Contact Questions</h2>
+                <Accordion type="single" collapsible className="w-full">
+                    {contactFAQs.map((faq, index) => (
+                        <AccordionItem key={index} value={`item-${index}`}>
+                            <AccordionTrigger className="text-left font-semibold hover:no-underline">
+                                {faq.question}
+                            </AccordionTrigger>
+                            <AccordionContent className="text-muted-foreground">
+                                {faq.answer}
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+            </div>
         </div>
       </section>
 

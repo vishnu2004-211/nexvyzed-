@@ -57,22 +57,16 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact - UPDATED */}
           <div>
             <h3 className="mb-4 text-sm font-semibold">Contact Info</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
+              {/* Only Mail remains */}
               <li className="flex items-start space-x-2">
                 <Mail className="mt-0.5 h-4 w-4 flex-shrink-0" />
-                <span>info@nexvyzed.com</span>
+                <span>careersmasternex@gmail.com</span>
               </li>
-              <li className="flex items-start space-x-2">
-                <Phone className="mt-0.5 h-4 w-4 flex-shrink-0" />
-                <span>+91 95730 28277</span>
-              </li>
-              <li className="flex items-start space-x-2">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" />
-                <span>Vijayawads, India</span>
-              </li>
+              {/* Phone and Address removed */}
             </ul>
           </div>
         </div>

@@ -1,8 +1,11 @@
+// src/pages/About.tsx
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { ArrowRight, Trophy, GraduationCap, Users } from "lucide-react"; // Added icons for new elements
+import { ArrowRight, Trophy, GraduationCap, Users } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import heroImage from "@/assets/hero-education.jpg"; 
 import {
   Briefcase,
   Brain,
@@ -18,6 +21,73 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"; 
+
+// --- FOUNDER MESSAGES FOR SCROLLING CARDS (Restored Data) ---
+const founderMessages = [
+    {
+        title: "Mission-Driven Training",
+        message: "We built Nexvyzed on the conviction that practical skills trump theory every time. Your success is our singular mission."
+    },
+    {
+        title: "Industry Relevance",
+        message: "The competitive world demands more than just a degree; it requires industry-aligned expertise. We ensure our curriculum stays ahead of the curve, always focusing on what recruiters actually look for."
+    },
+    {
+        title: "Investment in Futures",
+        message: "We believe education should be an investment with a guaranteed return. Our programs are designed to launch, not just land, successful careers."
+    },
+    {
+        title: "Dedicated Support",
+        message: "We promise dedicated mentorship and 24/7 support because learning shouldn't stop when the live class ends. Instant doubt resolution is key to mastering complex technical topics."
+    },
+    {
+        title: "Building Community",
+        message: "Join a community of focused, ambitious learners. Our collaborative environment fosters problem-solving and networking, giving you a crucial edge in the job market."
+    }
+];
+// ----------------------------------------------
+
+
+// --- FounderMessageMarquee Component (Restored Logic) ---
+const FounderMessageMarquee = ({ messages }) => {
+    // Duplicating the content twice for a seamless looping marquee effect
+    const duplicatedMessages = [...messages, ...messages];
+
+    return (
+        // The container sets the viewport and hides overflow
+        <div 
+            className="overflow-hidden relative py-4" 
+        >
+            {/* The inner element scrolls horizontally */}
+            <div className="flex"
+                 // NOTE: The 'marquee' animation keyframes must exist in your index.css
+                 style={{ 
+                     animation: 'marquee 45s linear infinite', 
+                     minWidth: '200%' 
+                 }}
+            >
+                {duplicatedMessages.map((item, index) => (
+                    // Each message is rendered as a card element
+                    <div 
+                        key={index} 
+                        className="flex-shrink-0 w-80 mr-8" 
+                    >
+                        <div className="h-full rounded-lg border-2 border-accent/20 bg-background p-6 shadow-md transition-shadow hover:shadow-lg">
+                            <h3 className="text-lg font-bold mb-2 text-primary">{item.title}</h3>
+                            <p className="text-sm italic text-muted-foreground">{`"${item.message}"`}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            
+            {/* Fades to make the loop seamless */}
+            <div className="absolute top-0 left-0 h-full w-12 bg-gradient-to-r from-card to-transparent"></div>
+            <div className="absolute top-0 right-0 h-full w-12 bg-gradient-to-l from-card to-transparent"></div>
+        </div>
+    );
+};
+// ------------------------------------------
+
 
 const About = () => {
   return (
@@ -37,16 +107,17 @@ const About = () => {
         </div>
       </section>
 
-      {/* NEW: Our Story Section (Narrative Orientation) */}
+      {/* Our Story Section (Narrative Orientation) */}
       <section className="py-16 border-b">
         <div className="container mx-auto px-4">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
-            {/* Left Column: Image/Visual Placeholder */}
-            <div className="h-full min-h-[300px] overflow-hidden rounded-xl shadow-xl bg-muted flex items-center justify-center">
-                {/* In a real app, you would replace this div with an <img src="..." /> */}
-                <span className="text-muted-foreground/70 text-xl font-semibold">
-                    
-                </span>
+            {/* Left Column: Image */}
+            <div className="h-full min-h-[300px] overflow-hidden rounded-xl shadow-xl bg-muted">
+                <img
+                    src={heroImage} 
+                    alt="Students collaborating or professional team setting"
+                    className="h-full w-full object-cover" 
+                />
             </div>
             
             {/* Right Column: Story Content */}
@@ -71,6 +142,26 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* UPDATED SECTION: Hear From Founders (Now functional) */}
+      <section className="py-16 bg-gradient-to-r from-primary/5 to-accent/5 border-b">
+        <div className="container mx-auto px-0"> 
+            <div className="mx-auto max-w-5xl">
+                <h2 className="mb-6 text-3xl font-bold text-center text-accent">
+                    Hear From Our Founders
+                </h2>
+                
+                {/* 👈 COMPONENT IS NOW CALLED HERE */}
+                <FounderMessageMarquee messages={founderMessages} />
+                
+                <p className="mt-8 text-center text-sm font-semibold text-primary">
+                    — The Nexvyzed Founding Team
+                </p>
+            </div>
+        </div>
+      </section>
+      {/* END UPDATED SECTION */}
+
 
       {/* Mission & Key Pillars Section (Restructured) */}
       <section className="py-16">

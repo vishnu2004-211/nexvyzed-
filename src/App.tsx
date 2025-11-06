@@ -1,4 +1,4 @@
-// src/App.tsx (Updated)
+// src/App.tsx
 
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -10,7 +10,8 @@ import About from "./pages/About";
 import Courses from "./pages/Courses";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import Enrollment from "./pages/Enrollment"; // 👈 NEW IMPORT
+import Enrollment from "./pages/Enrollment"; 
+import CourseDetail from "./pages/CourseDetail"; // 👈 NEW IMPORT
 
 const queryClient = new QueryClient();
 
@@ -25,7 +26,9 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/enroll" element={<Enrollment />} />
+          <Route path="/enroll" element={<Enrollment />} /> 
+          <Route path="/courses/:courseSlug" element={<CourseDetail />} /> {/* 👈 NEW DYNAMIC ROUTE */}
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
