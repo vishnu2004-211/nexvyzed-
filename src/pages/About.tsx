@@ -145,7 +145,7 @@ const About = () => {
         <div className="container mx-auto px-0"> 
             <div className="mx-auto max-w-5xl">
                 <h2 className="mb-6 text-3xl font-bold text-center text-accent">
-                    Hear From Our Founders
+                    Hear From Our Founder
                 </h2>
                 
                 <FounderMessageMarquee messages={founderMessages} />
