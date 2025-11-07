@@ -66,7 +66,6 @@ const Footer = () => {
                 <Mail className="mt-0.5 h-4 w-4 flex-shrink-0" />
                 <span>careersmasternex@gmail.com</span>
               </li>
-              {/* Phone and Address removed */}
             </ul>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { ArrowRight, Trophy, GraduationCap, Users } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-education.jpg"; 
+import heroImage from "@/assets/hero-education.jpg"; // RESTORED IMAGE IMPORT
 import {
   Briefcase,
   Brain,
@@ -22,7 +22,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"; 
 
-// --- FOUNDER MESSAGES FOR SCROLLING CARDS (Restored Data) ---
+// --- FOUNDER MESSAGES FOR SCROLLING CARDS (Restored Data & Component Definition) ---
 const founderMessages = [
     {
         title: "Mission-Driven Training",
@@ -45,10 +45,7 @@ const founderMessages = [
         message: "Join a community of focused, ambitious learners. Our collaborative environment fosters problem-solving and networking, giving you a crucial edge in the job market."
     }
 ];
-// ----------------------------------------------
 
-
-// --- FounderMessageMarquee Component (Restored Logic) ---
 const FounderMessageMarquee = ({ messages }) => {
     // Duplicating the content twice for a seamless looping marquee effect
     const duplicatedMessages = [...messages, ...messages];
@@ -143,7 +140,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* UPDATED SECTION: Hear From Founders (Now functional) */}
+      {/* UPDATED SECTION: Hear From Founders */}
       <section className="py-16 bg-gradient-to-r from-primary/5 to-accent/5 border-b">
         <div className="container mx-auto px-0"> 
             <div className="mx-auto max-w-5xl">
@@ -151,7 +148,6 @@ const About = () => {
                     Hear From Our Founders
                 </h2>
                 
-                {/* 👈 COMPONENT IS NOW CALLED HERE */}
                 <FounderMessageMarquee messages={founderMessages} />
                 
                 <p className="mt-8 text-center text-sm font-semibold text-primary">

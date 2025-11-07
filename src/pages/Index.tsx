@@ -32,10 +32,10 @@ import {
 
 // --- FINAL UPDATED DATA: Records/Stats ---
 const achievementRecords = [
-    { value: "1800+", label: "Students Trained" }, // Updated
-    { value: "3+", label: "Years of Operation" },  // Updated
-    { value: "60+", label: "Placement Drives Conducted" }, // Updated
-    { value: "85%", label: "Placement Success Rate" }, // Updated
+    { value: "1800+", label: "Students Trained" }, 
+    { value: "3+", label: "Years of Operation" },  
+    { value: "60+", label: "Placement Drives Conducted" }, 
+    { value: "85%", label: "Placement Success Rate" }, 
 ];
 // ------------------------------
 
@@ -65,7 +65,7 @@ const trustElements = [
 ];
 
 
-// --- SLIDING TRUST FACTORS ---
+// --- SLIDING TRUST FACTORS (Updated with 2 new blocks) ---
 const slidingTrustFactors = [
     {
         icon: CalendarCheck,
@@ -179,7 +179,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* NEW SECTION: Achievement Records (Stats) - MOVED BACK TO ORIGINAL POSITION */}
+      {/* NEW SECTION: Achievement Records (Stats) - RESTORED POSITION */}
       <section className="py-10 bg-primary/5 border-b">
           <div className="container mx-auto px-4">
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -194,7 +194,7 @@ const Index = () => {
       </section>
       {/* END NEW SECTION */}
 
-      {/* Trust Elements Section (Static Grid) - NOW AFTER RECORDS */}
+      {/* Trust Elements Section (Static Grid) */}
       <section className="py-12 border-b">
         <div className="container mx-auto px-4">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -249,7 +249,7 @@ const Index = () => {
                           <Icon className={`h-8 w-8 ${iconColorClass}`} />
                         </div>
                         <h3 className="mb-2 text-xl font-semibold">{factor.title}</h3>
-                          <p className={`text-sm ${textOpacityClass}`}>{factor.description}</p>
+                        <p className={`text-sm ${textOpacityClass}`}>{factor.description}</p>
                       </div>
                     </div>
                   </CarouselItem>
@@ -294,7 +294,6 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      {/* Background changed to bg-background (off-white) and text updated */}
       <section className="border-t bg-background py-16 text-foreground">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl text-center">
@@ -304,7 +303,6 @@ const Index = () => {
               and proven methodologies will guide you every step of the way.
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              {/* CHANGE APPLIED HERE: Button changed to Orange Primary */}
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 <Link to="/courses">View All Courses</Link>
               </Button>

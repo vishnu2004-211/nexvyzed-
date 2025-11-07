@@ -3,9 +3,8 @@ import { Button } from "./ui/button";
 import { GraduationCap, Menu, X, ChevronDown } from "lucide-react"; 
 import { useState, forwardRef } from "react"; 
 import useScrollHide from "@/hooks/use-scroll-hide"; 
-import { courseList, toSlug } from "@/lib/course-data"; 
-// New Imports for Hover Navigation Menu
-import {
+import { courseList, toSlug } from "@/lib/course-data"; // Assumed imports
+import { 
     NavigationMenu,
     NavigationMenuContent,
     NavigationMenuItem,
@@ -14,9 +13,7 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-
-// Helper component for NavigationMenu links (Standard Shadcn pattern)
-// Simplified to only show the title (Request 2)
+// Helper component for NavigationMenu links
 const ListItem = forwardRef(({ className, title, href, ...props }, ref) => {
     return (
         <li>
@@ -29,7 +26,6 @@ const ListItem = forwardRef(({ className, title, href, ...props }, ref) => {
                 >
                     {/* Only showing the title */}
                     <div className="text-sm font-medium leading-none">{title}</div> 
-                    {/* Description removed */}
                 </Link>
             </NavigationMenuLink>
         </li>
@@ -62,6 +58,7 @@ const Navigation = () => {
 
 
   return (
+    // NAVBAR CLASS: fixed position, transition-transform for smooth hiding
     <nav className={`fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-transform duration-300 ${smartNavbarClass}`}>
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
@@ -94,12 +91,10 @@ const Navigation = () => {
 
                 {/* 2. COURSES DROPDOWN MENU (Hover Triggered) */}
                 <NavigationMenuItem>
-                    {/* NavigationMenuTrigger handles the hover and chevron change */}
                     <NavigationMenuTrigger className={isCoursePathActive ? "text-primary" : "text-muted-foreground"}>
                         Courses
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        {/* Course list organized in a grid */}
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                             <ListItem title="View All Courses" href="/courses" className="col-span-2 font-bold text-primary/80" />
                             {courseList.map((course, index) => (
@@ -107,9 +102,7 @@ const Navigation = () => {
                                     key={index}
                                     title={course.title}
                                     href={`/courses/${toSlug(course.title)}`}
-                                >
-                                    {/* Description removal handled inside ListItem */}
-                                </ListItem>
+                                />
                             ))}
                         </ul>
                     </NavigationMenuContent>

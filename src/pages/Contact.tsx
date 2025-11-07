@@ -15,9 +15,9 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"; 
 
-// --- CRITICAL CHANGE: FORMSPREE CONTACT ENDPOINT ---
+// --- FORMSPREE CONTACT ENDPOINT ---
 const FORMSPREE_CONTACT_URL = "https://formspree.io/f/mzzknver"; 
-// ---------------------------------------------------------------------------------
+// ---------------------------------
 
 
 // --- FAQ DATA FOR CONTACT PAGE (Remains unchanged) ---
@@ -66,7 +66,6 @@ const Contact = () => {
     try {
         const response = await fetch(FORMSPREE_CONTACT_URL, {
             method: 'POST',
-            // Formspree accepts JSON body
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dataToSubmit), 
         });
@@ -75,10 +74,8 @@ const Contact = () => {
             toast.success("Thank you! Your message has been sent successfully via Formspree.");
             setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
         } else {
-            // Formspree returns detailed errors
             const errorData = await response.json();
             console.error("Formspree error:", errorData);
-            // Provide specific feedback if possible, or general error
             const errorMessage = errorData.error || "Submission failed. Please try again.";
             toast.error(errorMessage);
         }
@@ -97,7 +94,7 @@ const Contact = () => {
       icon: Mail,
       title: "Email",
       detail: "careersmasternex@gmail.com",
-      link: "mailto:info@nexvyzed.com",
+      link: "mailto:careersmasternex@gmail.com",
     },
     // Only Email remains
   ];
@@ -129,7 +126,6 @@ const Contact = () => {
                 <a
                   key={index}
                   href={info.link}
-                  // Styling adjusted for a single, full-width card
                   className="group flex flex-row items-center rounded-lg border bg-card p-6 shadow-sm transition-all hover:shadow-md space-x-4" 
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-transform group-hover:scale-110 flex-shrink-0">
